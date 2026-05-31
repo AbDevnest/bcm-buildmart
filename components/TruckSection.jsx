@@ -117,7 +117,7 @@ export default function TruckSection() {
 
               {/* Animated truck road at bottom — going left to right (correct) */}
               <div className="absolute bottom-0 left-0 right-0 h-8 overflow-hidden" aria-hidden>
-                <span className="absolute bottom-1 text-xl animate-truck-road">🚛</span>
+                <span className="absolute bottom-1 text-xl animate-truck-road ">⛟</span>
               </div>
             </div>
 
