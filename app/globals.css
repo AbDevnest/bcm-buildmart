@@ -1,0 +1,224 @@
+@import "tailwindcss";
+
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: #080808;
+    color: #f5f5f5;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  main {
+    position: relative;
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #080808;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #ea580c;
+    border-radius: 999px;
+  }
+}
+
+@layer components {
+  .site-container {
+    @apply mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-10;
+  }
+
+  .site-section {
+    @apply py-16 sm:py-20 lg:py-24;
+  }
+
+  .surface-card {
+    @apply rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-sm shadow-lg shadow-black/20;
+  }
+
+  .label,
+  .section-label {
+    @apply inline-flex items-center rounded-full border border-orange-500/30 bg-orange-500/10 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-orange-300;
+  }
+
+  .title-xl {
+    @apply text-4xl font-black leading-[1.06] tracking-tight sm:text-5xl lg:text-6xl;
+  }
+
+  .title-lg {
+    @apply text-3xl font-black leading-tight tracking-tight sm:text-4xl lg:text-5xl;
+  }
+
+  .title-md {
+    @apply text-2xl font-black leading-tight tracking-tight sm:text-3xl;
+  }
+
+  .title-sm {
+    @apply text-xl font-bold leading-snug sm:text-2xl;
+  }
+
+  .text-body-lg {
+    @apply text-base leading-relaxed text-neutral-400 sm:text-lg;
+  }
+
+  .text-body-md {
+    @apply text-sm leading-relaxed text-neutral-400 sm:text-base;
+  }
+
+  .text-body-sm {
+    @apply text-sm leading-relaxed text-neutral-400;
+  }
+
+  .field-input {
+    @apply w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-neutral-600 transition-colors focus:border-orange-500/50 focus:bg-white/10 focus:outline-none;
+  }
+
+  .ui-btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold transition-all duration-200;
+  }
+
+  .ui-btn-sm {
+    @apply px-4 py-2.5 text-xs;
+  }
+
+  .ui-btn-lg {
+    @apply px-7 py-3.5 text-base;
+  }
+
+  .ui-btn-primary {
+    @apply bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-lg shadow-orange-500/25 hover:from-orange-400 hover:to-orange-500 hover:shadow-orange-500/40;
+  }
+
+  .ui-btn-secondary {
+    @apply border border-white/10 bg-white/5 text-neutral-200 hover:bg-white/10 hover:text-white;
+  }
+
+  .ui-btn-whatsapp {
+    @apply bg-gradient-to-r from-green-600 to-green-700 text-white shadow-lg shadow-green-600/30 hover:from-green-500 hover:to-green-600;
+  }
+
+  .ui-badge {
+    @apply inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-[11px] font-semibold;
+  }
+
+  .ui-badge-orange {
+    @apply border-orange-500/30 bg-orange-500/12 text-orange-300;
+  }
+
+  .ui-badge-blue {
+    @apply border-blue-500/30 bg-blue-500/12 text-blue-300;
+  }
+
+  .ui-badge-green {
+    @apply border-green-500/30 bg-green-500/12 text-green-300;
+  }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  animation: marquee 30s linear infinite;
+  will-change: transform;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+.text-gradient,
+.gradient-text {
+  background: linear-gradient(135deg, #f97316, #fb923c, #fbbf24);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.bg-grid,
+.grid-pattern {
+  background-image:
+    linear-gradient(rgba(249, 115, 22, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(249, 115, 22, 0.04) 1px, transparent 1px);
+  background-size: 52px 52px;
+}
+
+.glow-text,
+.orange-glow-text {
+  text-shadow: 0 0 40px rgba(249, 115, 22, 0.45);
+}
+
+/* ---- Truck animations (correct left → right direction) ---- */
+@keyframes truck-drive {
+  0%   { transform: translateX(0); }
+  50%  { transform: translateX(12px); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes truck-road {
+  from { transform: translateX(-120%); }
+  to   { transform: translateX(calc(100vw + 120%)); }
+}
+
+.animate-truck-drive {
+  animation: truck-drive 3s ease-in-out infinite;
+}
+
+.animate-truck-road {
+  animation: truck-road 5s linear infinite;
+}
+
+/* ---- Float animations for hero badges ---- */
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-9px); }
+}
+
+@keyframes float-slow-reverse {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(9px); }
+}
+
+.animate-float-slow {
+  animation: float-slow 4s ease-in-out infinite;
+}
+
+.animate-float-slow-reverse {
+  animation: float-slow-reverse 5s ease-in-out infinite;
+  animation-delay: 1s;
+}
