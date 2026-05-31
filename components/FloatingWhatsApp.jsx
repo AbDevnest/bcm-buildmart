@@ -1,4 +1,5 @@
 'use client'
+
 import { useState } from 'react'
 import { X } from 'lucide-react'
 import { COMPANY } from '@/lib/data'
@@ -15,38 +16,37 @@ export default function FloatingWhatsApp() {
   const waLink = `https://wa.me/${COMPANY.phoneRaw}?text=Hello%20BCM%20BuildMart!%20I%20need%20building%20materials%20quote.`
 
   return (
-    <div
-      className="fixed z-50 flex flex-col items-end gap-3"
-      style={{
-        // iOS safe area + consistent gap on all devices
-        bottom: 'calc(1.25rem + env(safe-area-inset-bottom, 0px))',
-        right:  'calc(1rem + env(safe-area-inset-right, 0px))',
-      }}
-    >
-      {/* ── Popup card ── */}
+    <div className="fixed bottom-4 right-4 z-50 flex flex-col items-end gap-3">
+      
+      {/* Popup */}
       <div
-        className="w-68 sm:w-72 rounded-2xl overflow-hidden shadow-2xl border border-white/10 transition-all duration-200 origin-bottom-right"
-        style={{
-          background:    '#161616',
-          opacity:       open ? 1 : 0,
-          transform:     open ? 'scale(1) translateY(0)' : 'scale(0.95) translateY(8px)',
-          pointerEvents: open ? 'auto' : 'none',
-        }}
+        className={`w-[320px] max-w-[calc(100vw-2rem)] rounded-2xl overflow-hidden border border-white/10 shadow-2xl transition-all duration-200 origin-bottom-right ${
+          open
+            ? 'opacity-100 scale-100 translate-y-0'
+            : 'opacity-0 scale-95 translate-y-2 pointer-events-none'
+        }`}
+        style={{ background: '#161616' }}
       >
         {/* Header */}
         <div className="flex items-center justify-between px-4 py-3 bg-green-700">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-sm font-black text-white shrink-0">
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/20 text-sm font-black text-white">
               B
             </div>
+
             <div>
-              <p className="text-white font-semibold text-sm leading-none">BCM BuildMart</p>
-              <p className="text-green-200 text-[10px] mt-0.5">Typically replies instantly</p>
+              <p className="text-sm font-semibold text-white">
+                BCM BuildMart
+              </p>
+              <p className="mt-0.5 text-[10px] text-green-200">
+                Typically replies instantly
+              </p>
             </div>
           </div>
+
           <button
             onClick={() => setOpen(false)}
-            className="text-white/70 hover:text-white transition-colors p-1 shrink-0"
+            className="p-1 text-white/70 transition hover:text-white"
             aria-label="Close"
           >
             <X size={15} />
@@ -55,40 +55,48 @@ export default function FloatingWhatsApp() {
 
         {/* Body */}
         <div className="p-4">
-          <div className="bg-white/6 rounded-xl p-3 mb-3.5">
-            <p className="text-neutral-300 text-sm leading-relaxed">
-              👋 Hi! Need building materials?<br />
+          <div className="mb-4 rounded-xl bg-white/5 p-3">
+            <p className="text-sm leading-relaxed text-neutral-300">
+              👋 Hi! Need building materials?
+              <br />
               Chat with us for{' '}
-              <strong className="text-white">instant quotes</strong>{' '}
-              on Bajri, Rodi, Cement, TMT Steel &amp; more.
+              <strong className="text-white">
+                instant quotes
+              </strong>{' '}
+              on Bajri, Rodi, Cement, TMT Steel & more.
             </p>
           </div>
+
           <a
             href={waLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 w-full bg-green-600 hover:bg-green-500 text-white text-sm font-semibold py-2.5 rounded-xl transition-colors"
+            className="flex w-full items-center justify-center gap-2 rounded-xl bg-green-600 py-2.5 text-sm font-semibold text-white transition hover:bg-green-500"
           >
             Start Chat →
           </a>
         </div>
       </div>
 
-      {/* ── Main FAB button ── */}
+      {/* WhatsApp Button */}
       <button
         onClick={() => setOpen(v => !v)}
         aria-label="Chat on WhatsApp"
-        className="relative w-12 h-12 rounded-full flex items-center justify-center hover:scale-110 active:scale-95 transition-transform"
+        className="relative flex h-14 w-14 items-center justify-center rounded-full transition-transform hover:scale-110 active:scale-95"
         style={{
-          background:  'linear-gradient(135deg, #25d366, #128c7e)',
-          boxShadow:   '0 4px 20px rgba(37,211,102,0.4)',
-          flexShrink:  0,
+          background:
+            'linear-gradient(135deg,#25d366,#128c7e)',
+          boxShadow:
+            '0 4px 20px rgba(37,211,102,0.4)',
         }}
       >
         {WA_ICON}
-        {/* Ping ring — sirf jab popup band ho */}
+
         {!open && (
-          <span className="absolute inset-0 rounded-full bg-green-400 animate-ping opacity-20 pointer-events-none" aria-hidden />
+          <span
+            aria-hidden
+            className="pointer-events-none absolute inset-0 animate-ping rounded-full bg-green-400 opacity-20"
+          />
         )}
       </button>
     </div>

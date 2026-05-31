@@ -69,7 +69,7 @@ export default function Navbar() {
     ) : (
       <button
         onClick={() => { setMenuOpen(false); setAuthOpen(true) }}
-        className={`flex items-center justify-center gap-1.5 border border-white/10 bg-white/5 hover:bg-white/10 text-neutral-200 hover:text-white px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${full ? 'w-full' : ''}`}
+        className={`flex items-center justify-center gap-1.5 border border-white/10 bg-white/5 hover:bg-white/10 text-neutral-200 hover:text-white px-3 py-2 rounded-xl text-xs font-semibold transition-all ${full ? 'w-full' : ''}`}
       >
         <UserCircle size={13} />
         Login
@@ -81,7 +81,7 @@ export default function Navbar() {
       href={`https://wa.me/${COMPANY.phoneRaw}`}
       target="_blank"
       rel="noopener noreferrer"
-      className={`flex items-center justify-center gap-1.5 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-500 hover:to-green-600 text-white px-3 py-1.5 rounded-xl text-xs font-semibold transition-all shadow-md shadow-green-700/20 ${full ? 'w-full' : ''}`}
+      className={`flex items-center justify-center gap-1.5 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-500 hover:to-green-600 text-white px-3 py-2 rounded-xl text-xs font-semibold transition-all shadow-md shadow-green-700/20 ${full ? 'w-full' : ''}`}
     >
       <WAIcon />
       WhatsApp
@@ -91,7 +91,7 @@ export default function Navbar() {
   const CallBtn = ({ full = false }) => (
     <a
       href={`tel:${COMPANY.phone}`}
-      className={`flex items-center justify-center gap-1.5 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-400 hover:to-orange-500 text-white px-3 py-1.5 rounded-xl text-xs font-semibold transition-all shadow-md shadow-orange-500/20 ${full ? 'w-full' : ''}`}
+      className={`flex items-center justify-center gap-1.5 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-400 hover:to-orange-500 text-white px-3 py-2 rounded-xl text-xs font-semibold transition-all shadow-md shadow-orange-500/20 ${full ? 'w-full' : ''}`}
     >
       <Phone size={12} />
       Call
