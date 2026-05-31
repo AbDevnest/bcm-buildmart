@@ -16,11 +16,17 @@ export default function FloatingWhatsApp() {
   const waLink = `https://wa.me/${COMPANY.phoneRaw}?text=Hello%20BCM%20BuildMart!%20I%20need%20building%20materials%20quote.`
 
   return (
-    <div className="fixed bottom-4 right-4 z-50 flex flex-col items-end gap-3">
+    <div
+      className="fixed z-50 flex max-w-[calc(100dvw-1.5rem)] flex-col items-end gap-3"
+      style={{
+        right: 'max(0.75rem, env(safe-area-inset-right))',
+        bottom: 'max(1rem, env(safe-area-inset-bottom))',
+      }}
+    >
       
       {/* Popup */}
       <div
-        className={`w-[320px] max-w-[calc(100vw-2rem)] rounded-2xl overflow-hidden border border-white/10 shadow-2xl transition-all duration-200 origin-bottom-right ${
+        className={`w-[320px] max-w-full rounded-2xl overflow-hidden border border-white/10 shadow-2xl transition-all duration-200 origin-bottom-right ${
           open
             ? 'opacity-100 scale-100 translate-y-0'
             : 'opacity-0 scale-95 translate-y-2 pointer-events-none'
@@ -82,7 +88,7 @@ export default function FloatingWhatsApp() {
       <button
         onClick={() => setOpen(v => !v)}
         aria-label="Chat on WhatsApp"
-        className="relative flex h-14 w-14 items-center justify-center rounded-full transition-transform hover:scale-110 active:scale-95"
+        className="relative flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-full transition-transform hover:scale-105 active:scale-95"
         style={{
           background:
             'linear-gradient(135deg,#25d366,#128c7e)',

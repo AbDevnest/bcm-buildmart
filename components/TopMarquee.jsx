@@ -17,9 +17,13 @@ const DOUBLED = [...ITEMS, ...ITEMS]
 export default function TopMarquee() {
   return (
     <div className="relative overflow-hidden select-none"
-      style={{ background: 'linear-gradient(90deg,#b45309,#c2410c,#ea580c,#f97316,#b45309)', boxShadow: '0 2px 20px rgba(249,115,22,0.4)' }}>
-      <div className="flex overflow-hidden py-3">
-        <div className="marquee-track flex shrink-0">
+      style={{
+        background: 'linear-gradient(90deg,#b45309,#c2410c,#ea580c,#f97316,#b45309)',
+        boxShadow: '0 2px 20px rgba(249,115,22,0.4)',
+        contain: 'layout paint',
+      }}>
+      <div className="relative h-10 overflow-hidden">
+        <div className="marquee-track absolute left-0 top-0 flex h-full shrink-0 items-center">
           {DOUBLED.map((item, i) => (
             <span key={i} className="flex items-center shrink-0 gap-2.5 px-8 text-white text-xs font-semibold tracking-wide">
               <span className="text-sm">{item.icon}</span>

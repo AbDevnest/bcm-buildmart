@@ -9,9 +9,11 @@
 
   html {
     scroll-behavior: smooth;
+    overflow-x: clip;
   }
 
   body {
+    width: 100%;
     background: #080808;
     color: #f5f5f5;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;

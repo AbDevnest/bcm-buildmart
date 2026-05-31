@@ -25,6 +25,60 @@ const WAIcon = () => (
   </svg>
 )
 
+function LoginBtn({ full = false, user, onLogin, onLogout }) {
+  return user ? (
+    <div className={`flex items-center gap-1.5 ${full ? 'w-full justify-between' : ''}`}>
+      <div className="flex items-center gap-2 bg-orange-500/10 border border-orange-500/20 rounded-xl px-3 py-1.5">
+        <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-orange-500 to-orange-700 flex items-center justify-center text-white font-black text-[10px] shrink-0">
+          {user.name.charAt(0).toUpperCase()}
+        </div>
+        <span className="text-orange-300 text-xs font-semibold leading-none">{shortName(user.name)}</span>
+      </div>
+      <button
+        onClick={onLogout}
+        className="p-1.5 text-neutral-500 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-all"
+        title="Logout"
+      >
+        <LogOut size={13} />
+      </button>
+    </div>
+  ) : (
+    <button
+      onClick={onLogin}
+      className={`flex items-center justify-center gap-1.5 border border-white/10 bg-white/5 hover:bg-white/10 text-neutral-200 hover:text-white px-3 py-2 rounded-xl text-xs font-semibold transition-all ${full ? 'w-full' : ''}`}
+    >
+      <UserCircle size={13} />
+      Login
+    </button>
+  )
+}
+
+function WABtn({ full = false }) {
+  return (
+    <a
+      href={`https://wa.me/${COMPANY.phoneRaw}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`flex items-center justify-center gap-1.5 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-500 hover:to-green-600 text-white px-3 py-2 rounded-xl text-xs font-semibold transition-all shadow-md shadow-green-700/20 ${full ? 'w-full' : ''}`}
+    >
+      <WAIcon />
+      WhatsApp
+    </a>
+  )
+}
+
+function CallBtn({ full = false }) {
+  return (
+    <a
+      href={`tel:${COMPANY.phone}`}
+      className={`flex items-center justify-center gap-1.5 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-400 hover:to-orange-500 text-white px-3 py-2 rounded-xl text-xs font-semibold transition-all shadow-md shadow-orange-500/20 ${full ? 'w-full' : ''}`}
+    >
+      <Phone size={12} />
+      Call
+    </a>
+  )
+}
+
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
@@ -38,65 +92,16 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', fn)
   }, [])
 
-  useEffect(() => { setMenuOpen(false) }, [pathname])
-
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : ''
     return () => { document.body.style.overflow = '' }
   }, [menuOpen])
 
   const handleLogout = () => setUser(null) // apne actual logout se replace karo
-
-  // ── Reusable buttons ─────────────────────────────────────
-
-  const LoginBtn = ({ full = false }) =>
-    user ? (
-      <div className={`flex items-center gap-1.5 ${full ? 'w-full justify-between' : ''}`}>
-        <div className="flex items-center gap-2 bg-orange-500/10 border border-orange-500/20 rounded-xl px-3 py-1.5">
-          <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-orange-500 to-orange-700 flex items-center justify-center text-white font-black text-[10px] shrink-0">
-            {user.name.charAt(0).toUpperCase()}
-          </div>
-          <span className="text-orange-300 text-xs font-semibold leading-none">{shortName(user.name)}</span>
-        </div>
-        <button
-          onClick={handleLogout}
-          className="p-1.5 text-neutral-500 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-all"
-          title="Logout"
-        >
-          <LogOut size={13} />
-        </button>
-      </div>
-    ) : (
-      <button
-        onClick={() => { setMenuOpen(false); setAuthOpen(true) }}
-        className={`flex items-center justify-center gap-1.5 border border-white/10 bg-white/5 hover:bg-white/10 text-neutral-200 hover:text-white px-3 py-2 rounded-xl text-xs font-semibold transition-all ${full ? 'w-full' : ''}`}
-      >
-        <UserCircle size={13} />
-        Login
-      </button>
-    )
-
-  const WABtn = ({ full = false }) => (
-    <a
-      href={`https://wa.me/${COMPANY.phoneRaw}`}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={`flex items-center justify-center gap-1.5 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-500 hover:to-green-600 text-white px-3 py-2 rounded-xl text-xs font-semibold transition-all shadow-md shadow-green-700/20 ${full ? 'w-full' : ''}`}
-    >
-      <WAIcon />
-      WhatsApp
-    </a>
-  )
-
-  const CallBtn = ({ full = false }) => (
-    <a
-      href={`tel:${COMPANY.phone}`}
-      className={`flex items-center justify-center gap-1.5 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-400 hover:to-orange-500 text-white px-3 py-2 rounded-xl text-xs font-semibold transition-all shadow-md shadow-orange-500/20 ${full ? 'w-full' : ''}`}
-    >
-      <Phone size={12} />
-      Call
-    </a>
-  )
+  const openLogin = () => {
+    setMenuOpen(false)
+    setAuthOpen(true)
+  }
 
   return (
     <>
@@ -141,7 +146,7 @@ export default function Navbar() {
 
             {/* ── Actions md+ ── */}
             <div className="hidden md:flex items-center gap-2 shrink-0">
-              <LoginBtn />
+              <LoginBtn user={user} onLogin={openLogin} onLogout={handleLogout} />
               <WABtn />
               <CallBtn />
             </div>
@@ -203,7 +208,7 @@ export default function Navbar() {
 
         {/* Drawer bottom */}
         <div className="px-3 pb-8 pt-4 space-y-2.5 border-t border-white/8 shrink-0">
-          <LoginBtn full />
+          <LoginBtn full user={user} onLogin={openLogin} onLogout={handleLogout} />
           <WABtn full />
           <CallBtn full />
         </div>
